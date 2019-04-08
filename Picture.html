@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Michael Chau</title>
+
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCBSHFM6VRtOiFJQ3Gb4W2CXRnijb6K8R4",
+            authDomain: "webapp1-4aae0.firebaseapp.com",
+            databaseURL: "https://webapp1-4aae0.firebaseio.com",
+            projectId: "webapp1-4aae0",
+            storageBucket: "webapp1-4aae0.appspot.com",
+            messagingSenderId: "429381450098"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
+    <script src="script.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="styles.css" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body id="body">
+<nav class="navbar navbar-expand-lg navbar-light sticky-top" >
+    <a class="navbar-brand" href="#"></a>
+    <p id="mtext">M</p>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="Home.html">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="About.html">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Skills.html">Skills</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Experience.html">Experience</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Reviews.html">Reviews</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="Picture.html">Picture</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="Hobbies.html" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Hobbies
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="Powerlifting.html">Powerlifting</a>
+                    <a class="dropdown-item" href="Volleyball.html">Volleyball</a>
+                    <a class="dropdown-item" href="Music.html">Music</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Contact.html">Contact</a>
+            </li>
+            <li>
+                <button type="button" class="btn btn-dark" onclick=setRandomColor()>Click to change font color</button>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="jumbotron jumbotron-fluid shadow-lg">
+    <div class="container">
+        <h1 class="display-4">Picture</h1>
+    </div>
+</div>
+<div class="container">
+    <div id="collage">
+        <h3>Click the button before uploading your own photo!</h3>
+        <button type="button" class="btn btn-info" onclick="Upload()">Click before choosing file!</button>
+    </div>
+    <br><Br><br>
+    <input type="file" id="fileButton" class="btn btn-info">
+    <br><br>
+    <progress value="0" max="100" id="uploader" class="progress-bar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</progress> <p>Progress bar</p>
+    <div id="collagepic">
+        <img src="..." alt="image" id="holder">
+    </div>
+</div>
+
+<footer class="footer sticky-bottom">
+    <div class="container-fluid text-center">
+        <div class="row">
+            <div class="col">
+                <h1 class="text">Follow me!</h1>
+                <p>If you want to be more intelligent click the links.</p>
+                <a href="#" class="fa fa-facebook"></a>
+                <a href="#" class="fa fa-youtube"></a>
+                <a href="#" class="fa fa-instagram"></a>
+                <a href="#" class="fa fa-twitter"></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright text-center py-3">Copyright ©2019 All rights reserved | Michael Chau
+    </div>
+</footer>
+
+<script>
+    function Upload(){
+        alert("Allowing you to upload photos");
+
+        var email="yourname@youremail.com";
+        var password = "Firebase2";
+        firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+            alert("Error signing in");
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // ...
+        });
+    }
+
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            alert(user.email);
+            console.log(user.toJSON());
+        } else {
+            alert("User did not click the button");
+        }
+    });
+
+    var uploader = document.getElementById("uploader");
+    var fileButton = document.getElementById("fileButton");
+    var holder = document.getElementById("holder");
+    var storage = firebase.storage();
+
+    function getImageForPath(p){
+        var storageRef = firebase.storage().ref();
+        var spaceRef = storageRef.child(p);
+        storageRef.child(p).getDownloadURL().then(function(url) {
+            var fullurl = url;
+            alert(fullurl);
+            holder.src = fullurl;
+        }).catch(function(error) {
+        });
+    }
+
+    getImageForPath('images/puppy2.jpg');
+
+    fileButton.addEventListener('change', function(e){
+        alert("uploading file...");
+        var file = e.target.files[0];
+        var storageRef = firebase.storage().ref('images/'+file.name);
+        var task = storageRef.put(file);
+        task.on('state_changed',
+            function progress(snapshot) {
+                var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
+                uploader.value = percentage;
+            },
+            function error(err){
+                cosole.log(err);
+            },
+            function complete(){
+                alert("upload complete");
+                getImageForPath('images/'+file.name);
+            }
+        );
+    });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+</html>
